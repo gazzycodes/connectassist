@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  hbbs:
+    container_name: hbbs
+    ports:
+      - 21115:21115
+      - 21116:21116
+      - 21116:21116/udp
+      - 21118:21118
+    image: rustdesk/rustdesk-server:latest
+    command: hbbs -r connectassist.live:21117
+    volumes:
+      - ./data:/root
+    networks:
+      - rustdesk-net
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  hbbr:
+    container_name: hbbr
+    ports:
+      - 21117:21117
+      - 21119:21119
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    volumes:
+      - ./data:/root
+    networks:
+      - rustdesk-net
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  rustdesk-net:
+    driver: bridge
+
+# Environment Variables (create .env file):
+# RUSTDESK_DOMAIN=connectassist.live
+# RUSTDESK_RELAY_PORT=21117
+# RUSTDESK_SIGNAL_PORT=21115
+# RUSTDESK_WEB_PORT=21118

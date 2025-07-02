@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectAssist - Remote Support</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>🔗 ConnectAssist</h1>
+                <p class="tagline">Secure Remote Support</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="hero">
+                <h2>Get Remote Support</h2>
+                <p class="hero-description">
+                    Our support team is ready to help you. Download and run the support tool below to get started.
+                </p>
+            </section>
+
+            <section class="download-section">
+                <div class="download-card" id="download-card">
+                    <div class="download-icon">💻</div>
+                    <h3 id="platform-title">Detecting your system...</h3>
+                    <p id="platform-description">Please wait while we detect your operating system.</p>
+                    
+                    <div class="download-buttons" id="download-buttons" style="display: none;">
+                        <button class="btn-primary" id="primary-download">
+                            <span class="btn-icon">⬇️</span>
+                            <span class="btn-text">Download Support Tool</span>
+                        </button>
+                        
+                        <div class="alternative-downloads">
+                            <p>Need a different version?</p>
+                            <div class="alt-buttons">
+                                <a href="downloads/connectassist-windows.exe" class="btn-alt" data-platform="windows">
+                                    🪟 Windows
+                                </a>
+                                <a href="downloads/connectassist-macos.dmg" class="btn-alt" data-platform="macos">
+                                    🍎 macOS
+                                </a>
+                                <a href="downloads/connectassist-linux.AppImage" class="btn-alt" data-platform="linux">
+                                    🐧 Linux
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="instructions">
+                <h3>📋 How to get support:</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Download</strong> the support tool using the button above
+                    </li>
+                    <li>
+                        <strong>Run</strong> the downloaded file (no installation required)
+                    </li>
+                    <li>
+                        <strong>Share</strong> the connection ID with your support technician
+                    </li>
+                    <li>
+                        <strong>Allow</strong> the connection when prompted
+                    </li>
+                </ol>
+                
+                <div class="security-note">
+                    <div class="security-icon">🔒</div>
+                    <div class="security-text">
+                        <strong>Your security is our priority</strong><br>
+                        All connections are encrypted end-to-end. The support session will only last as long as needed to resolve your issue.
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq">
+                <h3>❓ Frequently Asked Questions</h3>
+                <div class="faq-item">
+                    <h4>Is this safe to run?</h4>
+                    <p>Yes, our support tool uses industry-standard encryption and only allows connections when you explicitly approve them.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do I need to install anything?</h4>
+                    <p>No installation required. Simply download and run the tool when you need support.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What information can the technician see?</h4>
+                    <p>The technician can only see your screen and control your computer when you grant permission. They cannot access files without your knowledge.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I end the support session?</h4>
+                    <p>You can close the support tool at any time to immediately end the session.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 ConnectAssist. Secure remote support solution.</p>
+            <p class="contact">Need help? Contact: <a href="mailto:support@connectassist.live">support@connectassist.live</a></p>
+        </footer>
+    </div>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>

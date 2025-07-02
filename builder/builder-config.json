@@ -1,0 +1,52 @@
+{
+  "domain": "connectassist.live",
+  "company_name": "ConnectAssist",
+  "app_name": "ConnectAssist Support Tool",
+  "build_windows": true,
+  "build_linux": true,
+  "build_macos": false,
+  "hide_tray": false,
+  "auto_connect": false,
+  "unattended_access": false,
+  "unattended_password": "",
+  "encryption_key": "",
+  "direct_server": "",
+  "build_dir": "./build",
+  "output_dir": "../www/downloads",
+  "branding": {
+    "icon_path": "./assets/icon.ico",
+    "logo_path": "./assets/logo.png",
+    "company_url": "https://connectassist.live",
+    "support_email": "support@connectassist.live"
+  },
+  "features": {
+    "file_transfer": true,
+    "audio": true,
+    "clipboard": true,
+    "remote_restart": true,
+    "chat": true,
+    "screen_recording": false
+  },
+  "security": {
+    "require_password": false,
+    "session_timeout": 0,
+    "max_sessions": 0,
+    "whitelist_enabled": false,
+    "whitelist_ips": []
+  },
+  "ui_customization": {
+    "hide_server_settings": true,
+    "hide_network_settings": true,
+    "hide_about_menu": false,
+    "custom_title": "ConnectAssist Remote Support",
+    "custom_welcome_message": "Welcome to ConnectAssist remote support. Please share your connection ID with the technician."
+  },
+  "deployment": {
+    "auto_update": false,
+    "update_server": "",
+    "silent_install": false,
+    "create_desktop_shortcut": true,
+    "create_start_menu": true,
+    "install_service": false
+  }
+}
