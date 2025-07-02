@@ -63,7 +63,7 @@ check_docker() {
         sleep 5
     fi
     
-    cd $PROJECT_DIR
+    cd $PROJECT_DIR/docker
     
     # Check if containers are running
     local containers_status=$(docker-compose ps -q | wc -l)
@@ -90,8 +90,8 @@ check_docker() {
     fi
     
     # Check container health
-    local unhealthy=$(docker-compose ps | grep -c "unhealthy" || echo "0")
-    if [ $unhealthy -gt 0 ]; then
+    local unhealthy=$(cd $PROJECT_DIR/docker && docker-compose ps 2>/dev/null | grep -c "unhealthy" || echo "0")
+    if [ "$unhealthy" -gt 0 ]; then
         send_alert "Unhealthy Containers" "$unhealthy containers are in unhealthy state"
     fi
 }
@@ -231,7 +231,7 @@ generate_report() {
         echo ""
         
         echo "RustDesk Containers:"
-        cd $PROJECT_DIR && docker-compose ps
+        cd $PROJECT_DIR/docker && docker-compose ps 2>/dev/null || echo "Unable to get container status"
         echo ""
         
         echo "System Resources:"
