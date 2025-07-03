@@ -711,5 +711,53 @@ def get_system_status():
             'timestamp': datetime.now().isoformat()
         }), 500
 
+@app.route('/api/deploy', methods=['POST'])
+def deploy_updates():
+    """Deploy updates from GitHub repository"""
+    try:
+        # Simple deployment endpoint for updating from GitHub
+        import subprocess
+        import os
+
+        # Verify deployment key (simple security)
+        data = request.get_json() or {}
+        deploy_key = data.get('deploy_key')
+
+        if deploy_key != 'ConnectAssist2024Deploy':
+            return jsonify({'success': False, 'error': 'Invalid deployment key'}), 403
+
+        # Change to the project directory
+        project_dir = '/opt/connectassist'
+        if not os.path.exists(project_dir):
+            return jsonify({'success': False, 'error': 'Project directory not found'})
+
+        # Pull latest changes from GitHub
+        result = subprocess.run(['git', 'pull', 'origin', 'main'],
+                              cwd=project_dir,
+                              capture_output=True,
+                              text=True)
+
+        if result.returncode == 0:
+            # Restart API service if needed
+            try:
+                subprocess.run(['pkill', '-f', 'admin_api.py'], capture_output=True)
+            except:
+                pass
+
+            return jsonify({
+                'success': True,
+                'message': 'Deployment successful - API will restart',
+                'git_output': result.stdout
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Git pull failed',
+                'git_error': result.stderr
+            })
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
