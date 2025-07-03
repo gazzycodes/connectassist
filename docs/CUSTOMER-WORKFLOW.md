@@ -1,28 +1,30 @@
 # ConnectAssist Customer Support Workflow Guide
 
-This guide provides a foolproof, step-by-step process designed specifically for elderly and non-technical customers to receive remote support through ConnectAssist.
+This guide provides a foolproof, step-by-step process designed specifically for elderly and non-technical customers to receive remote support through ConnectAssist using our new **Support Code System**.
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Customer Preparation](#customer-preparation)
-3. [Step-by-Step Connection Process](#step-by-step-connection-process)
-4. [During the Support Session](#during-the-support-session)
-5. [After Support Completion](#after-support-completion)
-6. [Troubleshooting Common Issues](#troubleshooting-common-issues)
-7. [Safety and Security](#safety-and-security)
-8. [Support Contact Information](#support-contact-information)
+2. [New Support Code System](#new-support-code-system)
+3. [Customer Preparation](#customer-preparation)
+4. [Step-by-Step Connection Process](#step-by-step-connection-process)
+5. [During the Support Session](#during-the-support-session)
+6. [After Support Completion](#after-support-completion)
+7. [Troubleshooting Common Issues](#troubleshooting-common-issues)
+8. [Safety and Security](#safety-and-security)
+9. [Support Contact Information](#support-contact-information)
 
 ---
 
 ## Overview
 
-ConnectAssist is designed to make remote computer support as simple as possible. You don't need any technical knowledge - just follow these easy steps, and our support team will be able to help you with your computer problems.
+ConnectAssist now uses a revolutionary **Support Code System** that makes remote computer support even simpler. You don't need any technical knowledge - just enter a 6-digit code, and our support team will be able to help you with your computer problems.
 
 ### What You Need
 - A computer with internet connection
 - A phone to call our support team
-- About 5-10 minutes to set up
+- A 6-digit support code (provided by your technician)
+- About 3-5 minutes to set up (one-time only)
 
 ### What We Can Help With
 - Computer running slowly
@@ -31,6 +33,24 @@ ConnectAssist is designed to make remote computer support as simple as possible.
 - Internet connection problems
 - Installing or updating programs
 - General computer questions
+
+---
+
+## New Support Code System
+
+### How It Works
+1. **Call our support team** when you need help
+2. **Receive a 6-digit code** from your technician (like: 123456)
+3. **Visit our website** and enter the code
+4. **Download and install** the support software (one-time setup)
+5. **Your technician connects** automatically to help you
+
+### Benefits
+- ✅ **No technical knowledge required** - just enter 6 numbers
+- ✅ **One-time setup** - after first installation, technicians can connect anytime
+- ✅ **Automatic connection** - no passwords or complicated steps
+- ✅ **Secure and private** - only authorized technicians can connect
+- ✅ **Works after restarts** - support software starts automatically
 
 ---
 
@@ -69,7 +89,12 @@ When you call, have ready:
 - Brief description of your computer problem
 - Your computer type (Windows or Mac)
 
-### Step 2: Visit Our Website
+**Your technician will give you a 6-digit support code** (example: 123456)
+- Write this code down carefully
+- The code is only valid for 24 hours
+- You'll need this code in the next step
+
+### Step 2: Visit Our Website and Enter Your Support Code
 Our support agent will guide you to visit:
 🌐 **https://connectassist.live**
 
@@ -79,24 +104,24 @@ Our support agent will guide you to visit:
 3. Type: `connectassist.live`
 4. Press Enter
 
-### Step 3: Download the ConnectAssist Program
+**On the website:**
+1. You'll see a box that says **"Enter Your Support Code"**
+2. Type the 6-digit code your technician gave you (example: 123456)
+3. Click the **"Get Remote Support"** button
+4. The website will prepare a custom installer just for you
 
-**On the website, you'll see three big buttons:**
+### Step 3: Download Your Custom ConnectAssist Installer
 
-#### For Windows Computers:
-1. Click the **"Download for Windows"** button
-2. A file will download (usually goes to your Downloads folder)
-3. The file is called `connectassist-windows.exe`
+**After entering your support code:**
+1. The website will show **"Preparing your installer..."**
+2. A download will start automatically
+3. The file will be called something like `ConnectAssist-SUPP-123456-[numbers].zip`
+4. This file is created specifically for you and your support session
 
-#### For Mac Computers:
-1. Click the **"Download for Mac"** button
-2. A file will download (usually goes to your Downloads folder)
-3. The file is called `connectassist-macos.dmg`
-
-#### For Linux Computers:
-1. Click the **"Download for Linux"** button
-2. A file will download (usually goes to your Downloads folder)
-3. The file is called `connectassist-linux.AppImage`
+**If the download doesn't start:**
+1. Look for a **"Click here to download"** link
+2. Click it to start the download
+3. The file usually goes to your Downloads folder
 
 ### Step 4: Run the ConnectAssist Program
 

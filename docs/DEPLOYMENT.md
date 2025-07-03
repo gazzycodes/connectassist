@@ -1,21 +1,29 @@
 # ConnectAssist Deployment Guide
 
-This guide covers the complete deployment process for ConnectAssist on your VPS.
+This guide covers the complete deployment process for ConnectAssist with **Web Admin Dashboard** and **Customer Portal Integration** on your VPS.
 
 ## Prerequisites
 
 - Ubuntu 22.04 VPS with root access
 - Domain name pointed to your VPS IP
-- Ports 21115, 21116, 21117, 21118, 21119, 80, 443 open
+- Ports 21115, 21116, 80, 443, 5001 open
 - At least 2GB RAM and 2 vCPU recommended
+- Python 3.8+ with pip installed
+- Git installed
 
-## Quick Deployment
+## Complete Deployment Process
 
 ### 1. Initial Server Setup
 
 ```bash
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install required packages
+sudo apt install -y docker.io docker-compose nginx certbot python3-certbot-nginx git python3-pip
+
 # Clone the repository
-git clone <your-repo-url> /opt/connectassist
+git clone https://github.com/yourusername/connectassist.live.git /opt/connectassist
 cd /opt/connectassist
 
 # Make scripts executable
@@ -33,19 +41,78 @@ sudo nano docker/.env
 ```
 
 Update the following variables:
-- `RUSTDESK_DOMAIN`: Your domain name
+- `RUSTDESK_DOMAIN`: Your domain name (e.g., connectassist.live)
 - `SSL_EMAIL`: Your email for SSL certificates
 - `SERVER_IP`: Your VPS IP address
 
-### 3. Deploy Services
+### 3. Deploy RustDesk Services
 
 ```bash
 # Start RustDesk services
-cd /opt/connectassist
+cd /opt/connectassist/docker
 sudo docker-compose up -d
 
 # Check service status
 sudo docker-compose ps
+```
+
+### 4. Install Python Dependencies
+
+```bash
+# Install Flask API dependencies
+sudo pip3 install flask flask-cors requests
+
+# Verify installation
+python3 -c "import flask, flask_cors, requests; print('Dependencies installed successfully')"
+```
+
+### 5. Configure NGINX
+
+```bash
+# Copy NGINX configuration
+sudo cp nginx/sites-available/connectassist.live /etc/nginx/sites-available/
+sudo ln -sf /etc/nginx/sites-available/connectassist.live /etc/nginx/sites-enabled/
+
+# Test NGINX configuration
+sudo nginx -t
+
+# Reload NGINX
+sudo systemctl reload nginx
+```
+
+### 6. Setup SSL Certificates
+
+```bash
+# Generate SSL certificates
+sudo certbot --nginx -d yourdomain.com
+
+# Verify auto-renewal
+sudo certbot renew --dry-run
+```
+
+### 7. Deploy Flask API Server
+
+```bash
+# Start API server in background
+cd /opt/connectassist
+nohup python3 api/admin_api.py > logs/api.log 2>&1 &
+
+# Verify API is running
+curl -s https://yourdomain.com/api/status | python3 -m json.tool
+```
+
+### 8. Verify Complete Deployment
+
+```bash
+# Check all services
+sudo systemctl status nginx
+sudo docker-compose -f docker/docker-compose.yml ps
+ps aux | grep admin_api.py
+
+# Test web interfaces
+curl -I https://yourdomain.com
+curl -I https://yourdomain.com/admin
+curl -s https://yourdomain.com/api/status
 ```
 
 ### 4. Configure SSL

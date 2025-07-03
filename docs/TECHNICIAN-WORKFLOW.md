@@ -1,53 +1,162 @@
 # ConnectAssist Technician Operations Guide
 
-This guide provides comprehensive procedures for support technicians to efficiently initiate, manage, and complete remote support sessions using ConnectAssist.
+This guide provides comprehensive procedures for support technicians to efficiently initiate, manage, and complete remote support sessions using ConnectAssist's **Web-Based Admin Dashboard**.
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Pre-Session Preparation](#pre-session-preparation)
-3. [Session Initiation Process](#session-initiation-process)
-4. [Session Management](#session-management)
-5. [Common Support Scenarios](#common-support-scenarios)
-6. [Troubleshooting Technical Issues](#troubleshooting-technical-issues)
-7. [Session Documentation](#session-documentation)
-8. [Escalation Procedures](#escalation-procedures)
-9. [Best Practices](#best-practices)
-10. [Security Guidelines](#security-guidelines)
+2. [Admin Dashboard Access](#admin-dashboard-access)
+3. [Support Code Generation](#support-code-generation)
+4. [Device Management](#device-management)
+5. [Session Initiation Process](#session-initiation-process)
+6. [Session Management](#session-management)
+7. [Common Support Scenarios](#common-support-scenarios)
+8. [Troubleshooting Technical Issues](#troubleshooting-technical-issues)
+9. [Session Documentation](#session-documentation)
+10. [Best Practices](#best-practices)
+11. [Security Guidelines](#security-guidelines)
 
 ---
 
 ## Overview
 
-ConnectAssist enables technicians to provide efficient remote support to customers through a secure, encrypted connection. This guide ensures consistent, professional service delivery while maintaining security and customer satisfaction.
+ConnectAssist now provides a **professional web-based admin dashboard** that eliminates the need for command-line tools. Technicians can manage all support operations through an intuitive web interface at `https://connectassist.live/admin`.
+
+### Key Features
+- ✅ **Web-Based Interface** - No command-line tools required
+- ✅ **Support Code Generation** - Create 6-digit codes for customers
+- ✅ **Real-Time Device Monitoring** - See online/offline status instantly
+- ✅ **Direct Connection Initiation** - Connect to devices with one click
+- ✅ **Session Tracking** - Automatic logging of all support activities
+- ✅ **Customer Management** - Organized view of all customer devices
 
 ### Key Principles
 - **Customer-First Approach**: Always explain what you're doing
 - **Security-Conscious**: Follow all security protocols
-- **Efficient Resolution**: Solve problems quickly and thoroughly
-- **Documentation**: Record all actions and solutions
+- **Efficient Resolution**: Use the admin dashboard for quick problem solving
+- **Documentation**: All actions are automatically logged
 - **Professional Communication**: Maintain clear, patient communication
 
 ---
 
-## Pre-Session Preparation
+## Admin Dashboard Access
 
-### 1. Verify System Status
+### 1. Accessing the Dashboard
 
-Before starting any session, ensure all ConnectAssist systems are operational:
+**URL:** `https://connectassist.live/admin`
 
-```bash
-# Check system health (run on server)
-cd /opt/connectassist
-./scripts/health-check.sh --report
+**Login Process:**
+1. Open your web browser
+2. Navigate to `https://connectassist.live/admin`
+3. The dashboard loads automatically (no login required in current version)
+4. Verify system status indicator shows "Online" (green)
 
-# Verify key services
-systemctl status nginx
-systemctl status docker
-cd docker && docker-compose ps
-```
+### 2. Dashboard Overview
 
-### 2. Prepare Technician Workstation
+The admin dashboard provides four main sections:
+
+#### **System Status Panel**
+- Real-time system health indicator
+- Online devices count
+- Active support codes count
+- Total customers count
+
+#### **Support Code Generation Panel**
+- Customer name input field
+- Generate new 6-digit support codes
+- View recently generated codes
+
+#### **Device Management Panel**
+- List of all customer devices
+- Real-time online/offline status
+- Direct connection buttons
+- Device information display
+
+#### **Recent Activity Panel**
+- Recent support sessions
+- Connection logs
+- System events
+
+---
+
+## Support Code Generation
+
+### 1. Creating Support Codes for Customers
+
+**When a customer calls for support:**
+
+1. **Access the Admin Dashboard**
+   - Navigate to `https://connectassist.live/admin`
+   - Verify the system status shows "Online"
+
+2. **Generate Support Code**
+   - In the "Generate Support Code" panel
+   - Enter the customer's name in the "Customer Name" field
+   - Click the **"Generate Support Code"** button
+   - A 6-digit code will be generated (example: 123456)
+
+3. **Provide Code to Customer**
+   - Give the 6-digit code to the customer over the phone
+   - Explain that the code expires in 24 hours
+   - Guide them to visit `https://connectassist.live`
+   - Instruct them to enter the code in the support code field
+
+4. **Monitor Code Status**
+   - The generated code appears in the "Recent Support Codes" section
+   - Status shows as "Active" until customer downloads installer
+   - Status changes to "Downloaded" when customer gets the installer
+
+### 2. Support Code Management
+
+**Viewing Active Codes:**
+- All active support codes are displayed in the dashboard
+- Shows customer name, code, creation time, and expiration
+- Real-time status updates (Active → Downloaded → Connected)
+
+**Deactivating Codes:**
+- Click the "X" button next to any support code to deactivate it
+- Deactivated codes cannot be used by customers
+- Use this if a customer no longer needs support
+
+---
+
+## Device Management
+
+### 1. Monitoring Customer Devices
+
+**Device Status Dashboard:**
+- All customer devices appear in the "Connected Devices" panel
+- Real-time online/offline status indicators
+- Device information includes:
+  - Customer name
+  - Device ID
+  - Last seen timestamp
+  - Connection status
+  - Platform (Windows/Mac/Linux)
+
+**Status Indicators:**
+- 🟢 **Online** - Device is connected and ready for support
+- 🔴 **Offline** - Device is not currently connected
+- 🟡 **Connecting** - Device is in the process of connecting
+
+### 2. Device Information
+
+**For each device, you can see:**
+- **Customer Name** - Who the device belongs to
+- **Device ID** - Unique identifier for the device
+- **Support Code** - Original code used to set up the device
+- **Last Seen** - When the device was last online
+- **IP Address** - Current network location
+- **Platform** - Operating system type
+
+### 3. Connection Management
+
+**Initiating Connections:**
+1. Locate the customer's device in the device list
+2. Verify the device status shows "Online" (green indicator)
+3. Click the **"Connect"** button next to the device
+4. The system will initiate a direct connection
+5. RustDesk client will open automatically with connection details
 
 **Required Tools:**
 - ConnectAssist technician client
