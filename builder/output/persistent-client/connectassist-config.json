@@ -1,0 +1,15 @@
+{
+  "server": "connectassist.live",
+  "relay_server": "connectassist.live:21117",
+  "signal_server": "connectassist.live:21115",
+  "api_server": "https://connectassist.live",
+  "permanent_password": "ConnectAssist2024!",
+  "auto_connect": true,
+  "unattended_access": true,
+  "install_service": true,
+  "auto_start": true,
+  "start_minimized": true,
+  "service_name": "ConnectAssist Remote Support",
+  "support_code": "123456",
+  "customer_info": "Test Customer - Persistent Access Test"
+}

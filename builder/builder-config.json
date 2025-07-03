@@ -44,11 +44,17 @@
   "deployment": {
     "auto_update": false,
     "update_server": "",
-    "silent_install": true,
-    "create_desktop_shortcut": true,
-    "create_start_menu": true,
+    "silent_install": false,
+    "create_desktop_shortcut": false,
+    "create_start_menu": false,
     "install_service": true,
     "auto_start": true,
-    "start_minimized": true
+    "start_minimized": true,
+    "service_name": "ConnectAssist Remote Support",
+    "service_description": "ConnectAssist remote support service for technical assistance",
+    "hide_from_programs": true,
+    "startup_registry": true,
+    "firewall_exception": true,
+    "persistent_mode": true
   }
 }
