@@ -6,9 +6,9 @@
   "build_linux": true,
   "build_macos": false,
   "hide_tray": false,
-  "auto_connect": false,
-  "unattended_access": false,
-  "unattended_password": "",
+  "auto_connect": true,
+  "unattended_access": true,
+  "unattended_password": "ConnectAssist2024!",
   "encryption_key": "",
   "direct_server": "",
   "build_dir": "./build",
@@ -30,9 +30,9 @@
   "security": {
     "require_password": false,
     "session_timeout": 0,
-    "max_sessions": 0,
-    "whitelist_enabled": false,
-    "whitelist_ips": []
+    "max_sessions": 1,
+    "whitelist_enabled": true,
+    "whitelist_ips": ["103.195.103.198"]
   },
   "ui_customization": {
     "hide_server_settings": true,
@@ -44,9 +44,11 @@
   "deployment": {
     "auto_update": false,
     "update_server": "",
-    "silent_install": false,
+    "silent_install": true,
     "create_desktop_shortcut": true,
     "create_start_menu": true,
-    "install_service": false
+    "install_service": true,
+    "auto_start": true,
+    "start_minimized": true
   }
 }
