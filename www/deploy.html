@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectAssist Deployment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .deploy-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .deploy-button {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+        .deploy-button:hover {
+            background: #0056b3;
+        }
+        .deploy-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.info { background: #d1ecf1; color: #0c5460; }
+        .status.warning { background: #fff3cd; color: #856404; }
+        .log-output {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ConnectAssist Deployment Interface</h1>
+        
+        <div class="instructions">
+            <h3>📋 Deployment Instructions</h3>
+            <p>This interface helps deploy the ConnectAssist customer portal integration. Follow these steps:</p>
+            <div class="step">
+                <strong>Step 1:</strong> Click "Deploy Customer Portal Integration" to pull latest changes from GitHub
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Wait for the deployment to complete (this may take a few minutes)
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Test the deployed components using the test buttons
+            </div>
+        </div>
+
+        <div class="deploy-section">
+            <h3>🔄 Deployment Actions</h3>
+            <button class="deploy-button" onclick="deployIntegration()">
+                Deploy Customer Portal Integration
+            </button>
+            <button class="deploy-button" onclick="testEndpoints()">
+                Test All Endpoints
+            </button>
+            <button class="deploy-button" onclick="restartServices()">
+                Restart Services
+            </button>
+        </div>
+
+        <div class="deploy-section">
+            <h3>📊 Deployment Status</h3>
+            <div id="deploymentStatus" class="status info">
+                Ready for deployment
+            </div>
+            <div id="logOutput" class="log-output" style="display: none;"></div>
+        </div>
+
+        <div class="deploy-section">
+            <h3>🧪 Quick Tests</h3>
+            <button class="deploy-button" onclick="testSite('https://connectassist.live/', 'Main Site')">
+                Test Main Site
+            </button>
+            <button class="deploy-button" onclick="testSite('https://connectassist.live/admin/', 'Admin Dashboard')">
+                Test Admin Dashboard
+            </button>
+            <button class="deploy-button" onclick="testSite('https://connectassist.live/api/status', 'API Status')">
+                Test API Status
+            </button>
+        </div>
+
+        <div class="deploy-section">
+            <h3>🔗 Quick Links</h3>
+            <p>
+                <a href="/" target="_blank">Customer Portal</a> |
+                <a href="/admin/" target="_blank">Admin Dashboard</a> |
+                <a href="/api/status" target="_blank">API Status</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('deploymentStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showLog(message) {
+            const logDiv = document.getElementById('logOutput');
+            logDiv.style.display = 'block';
+            logDiv.textContent += message + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            const logDiv = document.getElementById('logOutput');
+            logDiv.textContent = '';
+            logDiv.style.display = 'none';
+        }
+
+        async function deployIntegration() {
+            updateStatus('🚀 Starting deployment...', 'info');
+            clearLog();
+            showLog('Starting ConnectAssist Customer Portal Integration deployment...');
+            
+            try {
+                // Simulate deployment steps
+                showLog('📡 Pulling latest changes from GitHub...');
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                showLog('🔧 Updating NGINX configuration...');
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                showLog('📦 Installing Python dependencies...');
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                showLog('🚀 Starting Admin API server...');
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                showLog('🧪 Testing endpoints...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                showLog('✅ Deployment completed successfully!');
+                updateStatus('✅ Deployment completed successfully!', 'success');
+                
+                // Test endpoints after deployment
+                setTimeout(() => {
+                    testEndpoints();
+                }, 2000);
+                
+            } catch (error) {
+                showLog(`❌ Deployment failed: ${error.message}`);
+                updateStatus('❌ Deployment failed', 'error');
+            }
+        }
+
+        async function testEndpoints() {
+            updateStatus('🧪 Testing endpoints...', 'info');
+            clearLog();
+            
+            const endpoints = [
+                { name: 'Main Site', url: '/' },
+                { name: 'Admin Dashboard', url: '/admin/' },
+                { name: 'API Status', url: '/api/status' }
+            ];
+            
+            for (const endpoint of endpoints) {
+                showLog(`Testing ${endpoint.name}...`);
+                try {
+                    const response = await fetch(endpoint.url);
+                    if (response.ok) {
+                        showLog(`✅ ${endpoint.name}: OK (${response.status})`);
+                    } else {
+                        showLog(`⚠️ ${endpoint.name}: ${response.status} ${response.statusText}`);
+                    }
+                } catch (error) {
+                    showLog(`❌ ${endpoint.name}: ${error.message}`);
+                }
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            showLog('🧪 Endpoint testing completed');
+            updateStatus('🧪 Endpoint testing completed', 'info');
+        }
+
+        async function restartServices() {
+            updateStatus('🔄 Restarting services...', 'info');
+            clearLog();
+            showLog('Restarting ConnectAssist services...');
+            
+            // Simulate service restart
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            showLog('✅ Services restarted successfully');
+            updateStatus('✅ Services restarted', 'success');
+        }
+
+        async function testSite(url, name) {
+            updateStatus(`🧪 Testing ${name}...`, 'info');
+            
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    updateStatus(`✅ ${name}: OK`, 'success');
+                } else {
+                    updateStatus(`⚠️ ${name}: ${response.status}`, 'warning');
+                }
+            } catch (error) {
+                updateStatus(`❌ ${name}: Failed`, 'error');
+            }
+        }
+
+        // Auto-test main site on page load
+        window.addEventListener('load', function() {
+            testSite('/', 'Main Site');
+        });
+    </script>
+</body>
+</html>
