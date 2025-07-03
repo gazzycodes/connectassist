@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectAssist Customer Portal Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-form {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .test-form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+        .test-form button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 20px;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ConnectAssist Customer Portal API Test</h1>
+    
+    <div class="test-section">
+        <h2>1. System Status Test</h2>
+        <p>Test the /api/status endpoint to check if the system is online.</p>
+        <button onclick="testSystemStatus()">Test System Status</button>
+        <div id="statusResult" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Support Code Validation Test</h2>
+        <p>Test the /api/customer/installer endpoint with a support code.</p>
+        <div class="test-form">
+            <input type="text" id="supportCodeInput" placeholder="Enter 6-digit support code" maxlength="6">
+            <button onclick="testSupportCode()">Test Support Code</button>
+        </div>
+        <div id="supportCodeResult" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Download Tracking Test</h2>
+        <p>Test the /api/track-download endpoint.</p>
+        <div class="test-form">
+            <input type="text" id="trackCodeInput" placeholder="Support code for tracking" maxlength="6">
+            <button onclick="testDownloadTracking()">Test Download Tracking</button>
+        </div>
+        <div id="trackingResult" class="test-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Customer Portal Integration Test</h2>
+        <p>Test the complete customer portal workflow.</p>
+        <div class="test-form">
+            <input type="text" id="integrationCodeInput" placeholder="Enter support code" maxlength="6">
+            <button onclick="testCustomerPortalIntegration()">Test Full Integration</button>
+        </div>
+        <div id="integrationResult" class="test-result"></div>
+    </div>
+
+    <script>
+        // Test System Status
+        async function testSystemStatus() {
+            const resultDiv = document.getElementById('statusResult');
+            resultDiv.innerHTML = '<div class="info">Testing system status...</div>';
+            
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✅ System Status: Online</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">❌ System Status Error</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">❌ Connection Error: ${error.message}</div>
+                `;
+            }
+        }
+        
+        // Test Support Code Validation
+        async function testSupportCode() {
+            const supportCode = document.getElementById('supportCodeInput').value.trim();
+            const resultDiv = document.getElementById('supportCodeResult');
+            
+            if (!supportCode) {
+                resultDiv.innerHTML = '<div class="error">Please enter a support code</div>';
+                return;
+            }
+            
+            if (supportCode.length !== 6 || !/^\d{6}$/.test(supportCode)) {
+                resultDiv.innerHTML = '<div class="error">Support code must be exactly 6 digits</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="info">Testing support code validation...</div>';
+            
+            try {
+                const response = await fetch('/api/customer/installer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ support_code: supportCode })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✅ Support Code Valid - Installer Generated</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">❌ Support Code Invalid or Error</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">❌ Connection Error: ${error.message}</div>
+                `;
+            }
+        }
+        
+        // Test Download Tracking
+        async function testDownloadTracking() {
+            const supportCode = document.getElementById('trackCodeInput').value.trim();
+            const resultDiv = document.getElementById('trackingResult');
+            
+            if (!supportCode) {
+                resultDiv.innerHTML = '<div class="error">Please enter a support code</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="info">Testing download tracking...</div>';
+            
+            try {
+                const response = await fetch('/api/track-download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        support_code: supportCode,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✅ Download Tracking Successful</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">❌ Download Tracking Failed</div>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">❌ Connection Error: ${error.message}</div>
+                `;
+            }
+        }
+        
+        // Test Customer Portal Integration
+        async function testCustomerPortalIntegration() {
+            const supportCode = document.getElementById('integrationCodeInput').value.trim();
+            const resultDiv = document.getElementById('integrationResult');
+            
+            if (!supportCode) {
+                resultDiv.innerHTML = '<div class="error">Please enter a support code</div>';
+                return;
+            }
+            
+            if (supportCode.length !== 6 || !/^\d{6}$/.test(supportCode)) {
+                resultDiv.innerHTML = '<div class="error">Support code must be exactly 6 digits</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="info">Testing complete customer portal integration...</div>';
+            
+            try {
+                // Step 1: Check system status
+                const statusResponse = await fetch('/api/status');
+                const statusData = await statusResponse.json();
+                
+                if (!statusResponse.ok || !statusData.online) {
+                    throw new Error('System is offline');
+                }
+                
+                // Step 2: Validate support code and generate installer
+                const installerResponse = await fetch('/api/customer/installer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ support_code: supportCode })
+                });
+                
+                const installerData = await installerResponse.json();
+                
+                if (!installerResponse.ok || !installerData.success) {
+                    throw new Error(installerData.error || 'Installer generation failed');
+                }
+                
+                // Step 3: Track download
+                const trackResponse = await fetch('/api/track-download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        support_code: supportCode,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                const trackData = await trackResponse.json();
+                
+                resultDiv.innerHTML = `
+                    <div class="success">✅ Complete Integration Test Successful</div>
+                    <h4>System Status:</h4>
+                    <pre>${JSON.stringify(statusData, null, 2)}</pre>
+                    <h4>Installer Generation:</h4>
+                    <pre>${JSON.stringify(installerData, null, 2)}</pre>
+                    <h4>Download Tracking:</h4>
+                    <pre>${JSON.stringify(trackData, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">❌ Integration Test Failed: ${error.message}</div>
+                `;
+            }
+        }
+        
+        // Auto-test system status on page load
+        window.addEventListener('load', function() {
+            testSystemStatus();
+        });
+    </script>
+</body>
+</html>

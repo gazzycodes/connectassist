@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConnectAssist - Remote Support</title>
     <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
 <body>
@@ -14,68 +15,84 @@
                 <h1>🔗 ConnectAssist</h1>
                 <p class="tagline">Secure Remote Support</p>
             </div>
+            <div class="status-indicator">
+                <div id="connectionStatus" class="status unknown">
+                    <i class="fas fa-question-circle"></i> Checking Status...
+                </div>
+            </div>
         </header>
 
         <main class="main-content">
             <section class="hero">
                 <h2>Get Remote Support</h2>
                 <p class="hero-description">
-                    Our support team is ready to help you. Download and run the support tool below to get started.
+                    Your technician will provide you with a support code. Enter it below to get your personalized ConnectAssist installer.
                 </p>
             </section>
 
-            <section class="download-section">
-                <div class="download-card" id="download-card">
-                    <div class="download-icon">💻</div>
-                    <h3 id="platform-title">Detecting your system...</h3>
-                    <p id="platform-description">Please wait while we detect your operating system.</p>
-                    
-                    <div class="download-buttons" id="download-buttons" style="display: none;">
-                        <button class="btn-primary" id="primary-download">
-                            <span class="btn-icon">⬇️</span>
-                            <span class="btn-text">Download Support Tool</span>
+            <!-- Support Code Section -->
+            <section class="support-section">
+                <div class="support-card">
+                    <div class="support-header">
+                        <h2>🔑 Enter Your Support Code</h2>
+                        <p>Your technician will provide you with a 6-digit support code. Enter it below to download your custom ConnectAssist installer.</p>
+                    </div>
+
+                    <form class="support-form" id="supportForm">
+                        <div class="form-group">
+                            <label for="supportCode">Support Code</label>
+                            <input type="text" id="supportCode" name="supportCode"
+                                   placeholder="Enter 6-digit code" maxlength="6"
+                                   pattern="[0-9]{6}" required>
+                            <small>Example: 123456</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-download"></i>
+                            Get My Installer
                         </button>
-                        
-                        <div class="alternative-downloads">
-                            <p>Need a different version?</p>
-                            <div class="alt-buttons">
-                                <a href="downloads/connectassist-windows.exe" class="btn-alt" data-platform="windows">
-                                    🪟 Windows
-                                </a>
-                                <a href="downloads/connectassist-macos.dmg" class="btn-alt" data-platform="macos">
-                                    🍎 macOS
-                                </a>
-                                <a href="downloads/connectassist-linux.AppImage" class="btn-alt" data-platform="linux">
-                                    🐧 Linux
-                                </a>
-                            </div>
+                    </form>
+
+                    <div class="support-help">
+                        <p><strong>Don't have a support code?</strong></p>
+                        <p>Contact your technician to receive your unique support code and personalized installer.</p>
+
+                        <div class="process-info">
+                            <h4>How it works:</h4>
+                            <ol>
+                                <li>Your technician generates a support code for you</li>
+                                <li>You enter the code above</li>
+                                <li>We create a custom installer just for you</li>
+                                <li>You download and run the installer once</li>
+                                <li>Your technician can now provide support when needed</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="instructions">
-                <h3>📋 How to get support:</h3>
+                <h3>📋 What happens after installation:</h3>
                 <ol class="steps">
                     <li>
-                        <strong>Download</strong> the support tool using the button above
+                        <strong>One-time setup</strong> - ConnectAssist installs as a background service
                     </li>
                     <li>
-                        <strong>Run</strong> the downloaded file (no installation required)
+                        <strong>Automatic startup</strong> - Starts when your computer boots up
                     </li>
                     <li>
-                        <strong>Share</strong> the connection ID with your support technician
+                        <strong>Secure connections</strong> - Only your technician can connect
                     </li>
                     <li>
-                        <strong>Allow</strong> the connection when prompted
+                        <strong>No maintenance</strong> - Works automatically, no action needed from you
                     </li>
                 </ol>
-                
+
                 <div class="security-note">
                     <div class="security-icon">🔒</div>
                     <div class="security-text">
                         <strong>Your security is our priority</strong><br>
-                        All connections are encrypted end-to-end. The support session will only last as long as needed to resolve your issue.
+                        All connections are encrypted end-to-end. Only authorized technicians with the correct credentials can connect to your computer.
                     </div>
                 </div>
             </section>
@@ -83,20 +100,24 @@
             <section class="faq">
                 <h3>❓ Frequently Asked Questions</h3>
                 <div class="faq-item">
-                    <h4>Is this safe to run?</h4>
-                    <p>Yes, our support tool uses industry-standard encryption and only allows connections when you explicitly approve them.</p>
+                    <h4>Is ConnectAssist safe to install?</h4>
+                    <p>Yes, ConnectAssist uses industry-standard encryption and only allows connections from authorized technicians with the correct credentials. All connections are secure and encrypted.</p>
                 </div>
                 <div class="faq-item">
-                    <h4>Do I need to install anything?</h4>
-                    <p>No installation required. Simply download and run the tool when you need support.</p>
+                    <h4>Do I need to install this every time I need support?</h4>
+                    <p>No! This is a one-time installation. Once installed, ConnectAssist runs automatically in the background and your technician can connect whenever you need support.</p>
                 </div>
                 <div class="faq-item">
-                    <h4>What information can the technician see?</h4>
-                    <p>The technician can only see your screen and control your computer when you grant permission. They cannot access files without your knowledge.</p>
+                    <h4>Will this slow down my computer?</h4>
+                    <p>No, ConnectAssist runs quietly in the background using minimal system resources. You won't notice any impact on your computer's performance.</p>
                 </div>
                 <div class="faq-item">
-                    <h4>How do I end the support session?</h4>
-                    <p>You can close the support tool at any time to immediately end the session.</p>
+                    <h4>What information can the technician access?</h4>
+                    <p>The technician can only see your screen and control your computer when providing support. They cannot access personal files or information without your knowledge and permission.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I uninstall ConnectAssist if needed?</h4>
+                    <p>You can uninstall ConnectAssist anytime through Windows Settings > Apps, or contact your technician for assistance with removal.</p>
                 </div>
             </section>
         </main>
@@ -108,5 +129,6 @@
     </div>
 
     <script src="assets/script.js"></script>
+    <script src="assets/customer-portal.js"></script>
 </body>
 </html>

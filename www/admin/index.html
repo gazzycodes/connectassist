@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectAssist Admin Dashboard</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="admin-style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1><i class="fas fa-shield-alt"></i> ConnectAssist Admin</h1>
+                    <span class="version">Professional Dashboard v2.0</span>
+                </div>
+                <div class="header-actions">
+                    <div class="connection-status" id="connectionStatus">
+                        <i class="fas fa-circle status-indicator"></i>
+                        <span>Connected</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="admin-main">
+            <!-- Quick Stats -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="onlineDevices">0</h3>
+                            <p>Online Devices</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalCustomers">0</h3>
+                            <p>Total Customers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="activeCodes">0</h3>
+                            <p>Active Support Codes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="activeSessions">0</h3>
+                            <p>Active Sessions</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Panels -->
+            <section class="action-panels">
+                <div class="panel-grid">
+                    <!-- Support Code Generation -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-plus-circle"></i> Generate Support Code</h3>
+                        </div>
+                        <div class="panel-content">
+                            <form id="generateCodeForm" class="code-form">
+                                <div class="form-group">
+                                    <label for="customerName">Customer Name</label>
+                                    <input type="text" id="customerName" name="customerName" required 
+                                           placeholder="Enter customer name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerEmail">Email (Optional)</label>
+                                    <input type="email" id="customerEmail" name="customerEmail" 
+                                           placeholder="customer@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerPhone">Phone (Optional)</label>
+                                    <input type="tel" id="customerPhone" name="customerPhone" 
+                                           placeholder="(555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sessionNotes">Session Notes</label>
+                                    <textarea id="sessionNotes" name="sessionNotes" rows="3" 
+                                              placeholder="Brief description of the support request..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    <i class="fas fa-key"></i> Generate Support Code
+                                </button>
+                            </form>
+                            
+                            <!-- Generated Code Display -->
+                            <div id="generatedCodeDisplay" class="code-display" style="display: none;">
+                                <div class="code-result">
+                                    <h4>Support Code Generated!</h4>
+                                    <div class="support-code" id="supportCodeValue">123456</div>
+                                    <div class="code-actions">
+                                        <button class="btn btn-secondary" onclick="copyCodeToClipboard()">
+                                            <i class="fas fa-copy"></i> Copy Code
+                                        </button>
+                                        <button class="btn btn-secondary" onclick="sendCodeToCustomer()">
+                                            <i class="fas fa-envelope"></i> Send to Customer
+                                        </button>
+                                    </div>
+                                    <div class="code-instructions">
+                                        <p><strong>Customer Instructions:</strong></p>
+                                        <p>1. Visit <strong>connectassist.live</strong></p>
+                                        <p>2. Enter support code: <strong id="codeInstructions">123456</strong></p>
+                                        <p>3. Download and run the installer</p>
+                                        <p>4. Follow the setup prompts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="action-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="quick-actions">
+                                <button class="btn btn-outline" onclick="viewAllDevices()">
+                                    <i class="fas fa-list"></i> View All Devices
+                                </button>
+                                <button class="btn btn-outline" onclick="viewActiveSessions()">
+                                    <i class="fas fa-eye"></i> Active Sessions
+                                </button>
+                                <button class="btn btn-outline" onclick="generateBulkCodes()">
+                                    <i class="fas fa-layer-group"></i> Bulk Code Generation
+                                </button>
+                                <button class="btn btn-outline" onclick="exportCustomerData()">
+                                    <i class="fas fa-download"></i> Export Customer Data
+                                </button>
+                                <button class="btn btn-outline" onclick="systemSettings()">
+                                    <i class="fas fa-cog"></i> System Settings
+                                </button>
+                                <button class="btn btn-outline" onclick="viewLogs()">
+                                    <i class="fas fa-file-alt"></i> View Logs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Device Management -->
+            <section class="device-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-desktop"></i> Customer Devices</h2>
+                    <div class="section-actions">
+                        <input type="text" id="deviceSearch" placeholder="Search devices..." class="search-input">
+                        <select id="deviceFilter" class="filter-select">
+                            <option value="all">All Devices</option>
+                            <option value="online">Online Only</option>
+                            <option value="offline">Offline Only</option>
+                            <option value="recent">Recently Active</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="devices-grid" id="devicesGrid">
+                    <!-- Devices will be loaded dynamically -->
+                    <div class="device-card loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading devices...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                </div>
+                <div class="activity-feed" id="activityFeed">
+                    <!-- Activity items will be loaded dynamically -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="deviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalDeviceTitle">Device Details</h3>
+                <span class="close" onclick="closeModal('deviceModal')">&times;</span>
+            </div>
+            <div class="modal-body" id="modalDeviceContent">
+                <!-- Device details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="connectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Connect to Device</h3>
+                <span class="close" onclick="closeModal('connectModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="connect-options">
+                    <button class="btn btn-primary btn-large" onclick="initiateConnection('desktop')">
+                        <i class="fas fa-desktop"></i> Desktop Control
+                    </button>
+                    <button class="btn btn-secondary btn-large" onclick="initiateConnection('file')">
+                        <i class="fas fa-folder"></i> File Transfer
+                    </button>
+                    <button class="btn btn-secondary btn-large" onclick="initiateConnection('terminal')">
+                        <i class="fas fa-terminal"></i> Terminal Access
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/script.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
